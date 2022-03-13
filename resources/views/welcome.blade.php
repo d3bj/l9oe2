@@ -7,6 +7,6 @@
     <title>Open Exam MVP 2</title>
 </head>
 <body>
-    Welcome to open Exam API SERVER. Please Goto <a href="https://alpana.org.openexam">Documentation</a> For More Details.
+    Welcome to open Exam API SERVER. Please Goto <a href="https://alpana.org/openexam">Documentation</a> For More Details.
 </body>
 </html>
