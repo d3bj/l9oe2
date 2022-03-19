@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Artisan;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if (request('artisan_cmd')) {
-        return request('artisan_cmd');
+        // return request('artisan_cmd');
+        Artisan::call("migrate:fresh");
     }
     return view('welcome');
 });
