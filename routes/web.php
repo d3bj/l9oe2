@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function(){
-    $test = Artisan::call("migrate:fresh");
+    $test = Artisan::call("migrate:fresh --force");
         dd($test);
 });
 
