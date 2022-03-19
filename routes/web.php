@@ -14,5 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    if (request('artisan_cmd')) {
+        return request('artisan_cmd');
+    }
     return view('welcome');
 });
