@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Artisan;
 Route::get('/', function () {
     if (request('artisan_cmd')) {
         // return request('artisan_cmd');
-        Artisan::call("migrate:fresh");
+        $test = Artisan::call("migrate:fresh");
+        echo $test;
+        return;
     }
     return view('welcome');
 });
