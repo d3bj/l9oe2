@@ -14,13 +14,12 @@ use Illuminate\Support\Facades\Artisan;
 */
 
 Route::get('/', function () {
-    if (request('artisan_cmd')) {
-        // return request('artisan_cmd');
-        $test = Artisan::call("migrate:fresh");
-        echo $test;
-        return;
-    }
     return view('welcome');
+});
+
+Route::get('/', function(){
+    $test = Artisan::call("migrate:fresh");
+        dd($test);
 });
 
 Route::get('/debug-sentry', function () {
