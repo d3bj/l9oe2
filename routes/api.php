@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 // Auth
 Route::post('login', LoginCotroller::class);
-Route::post('logout', LogoutCotroller::class);
+Route::post('logout', LogoutCotroller::class)->middleware(['auth:sanctum']);
 Route::post('register', RegisterCotroller::class);
 Route::post('reset-password', [ResetPasswordCotroller::class, 'reset']);
 Route::post('reset-password-sent-link', [ResetPasswordCotroller::class, 'sendResetLink']);
