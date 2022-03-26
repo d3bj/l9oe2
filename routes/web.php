@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\User;
-use Database\Factories\UserFactory;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 /*
@@ -14,10 +14,9 @@ use Illuminate\Support\Facades\Artisan;
 | contains the "web" middleware group. Now create something great!
 |
 */
-use Illuminate\Support\Str;
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+
 Route::get('/ct', function () {
     $random_num = Str::random(8);
     $data = [
@@ -30,6 +29,10 @@ Route::get('/ct', function () {
     dd($data,User::all());
 
 });
+Route::get('/get-users', function ()
+{
+    return User::all();
+});
 
 Route::get('/test', function(){
     $test = Artisan::call("migrate:fresh --force");
@@ -40,4 +43,8 @@ Route::get('/test', function(){
 
 Route::get('/debug-sentry', function () {
     throw new Exception('My first Sentry error!');
+});
+
+Route::get('/', function () {
+    return view('welcome');
 });
