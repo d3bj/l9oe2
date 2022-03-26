@@ -31,7 +31,7 @@ Route::get('/ct', function () {
 });
 Route::get('/get-users', function ()
 {
-    return User::all();
+    dd(User::all());
 });
 
 Route::get('/test', function(){
