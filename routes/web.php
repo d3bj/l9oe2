@@ -25,10 +25,11 @@ Route::get('/test', function () {
 
 Route::get('/ct', function () {
     $random_num = Str::random(8);
+    $email = $random_num . "@email.com";
     $data = [
         'name'=>$random_num,
         'username'=>$random_num,
-        'email'=>$random_num . "@email.com"
+        'email'=> $email
     ];
 
     $data2 = User::factory()->create($data);
