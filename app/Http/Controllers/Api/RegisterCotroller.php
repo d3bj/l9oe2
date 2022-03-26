@@ -19,13 +19,19 @@ class RegisterCotroller extends Controller
      */
     public function __invoke(RegisterRequest $request)
     {
-        // Validate request
-        $test = $request->validated();
-        // Get data except password and set encrypted password to the array
-        $user_details = Arr::except($test, ['password']) + ['password' => bcrypt($test['password'])];
+        try {
 
-        // Create user
-        $user = User::create($user_details);
+            // Validate request
+            $test = $request->validated();
+            // Get data except password and set encrypted password to the array
+            $user_details = Arr::except($test, ['password']) + ['password' => bcrypt($test['password'])];
+
+            // Create user
+            $user = User::create($user_details);
+        } catch (\Throwable $th) {
+            return response('error',404);
+        }
+
 
         // Return confirmation with username, name and email inside 'data' array
         return new RegisterResource($user);
