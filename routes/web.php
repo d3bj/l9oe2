@@ -25,9 +25,10 @@ Route::get('/test', function () {
 
 Route::get('/ct', function () {
     $random_num = Str::random(8);
+    $name = $random_num . '_name';
     $email = $random_num . "@email.com";
     $data = [
-        'name'=>$random_num,
+        'name'=>$name,
         'username'=>$random_num,
         'email'=> $email
     ];
