@@ -32,7 +32,7 @@ class RegisterCotroller extends Controller
             // Return confirmation with username, name and email inside 'data' array
             return new RegisterResource($user);
         } catch (Exception $ex) {
-            abort(404, 'Could not create office or assign it to administrator');
+            abort(401, 'Could not create office or assign it to administrator');
         }
     }
 }
