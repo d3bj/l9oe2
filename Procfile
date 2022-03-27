@@ -1,1 +1,1 @@
-web: vendor/bin/qoddi-php-nginx public/
+web: vendor/bin/qoddi-php-apache2 public/
