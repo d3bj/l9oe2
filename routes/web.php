@@ -22,10 +22,11 @@ Route::get('/ct', function () {
     $data = [
         'name'=>$random_num,
         'username'=>$random_num,
-        'email'=>$random_num . "@email.com"
+        'email'=>$random_num . "@email.com",
+        'password'=> '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
     ];
 
-    $data2 = User::factory()->create($data);
+    $data2 = User::create($data);
     dd($data,User::all());
 
 });
