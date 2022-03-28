@@ -2,21 +2,28 @@
 
 namespace Tests\Feature\Auth;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ResetPasswordTest extends TestCase
 {
     /**
-     * A basic feature test example.
+     * User can get email with password reset information.
      *
      * @return void
      */
-    public function test_example()
+    public function test_user_can_get_the_email_with_password_reset_information()
     {
-        $response = $this->get('/');
+        Notification::fake();
 
-        $response->assertStatus(200);
+        $user = $this->create_user();
+        $response = $this->postJson('/api/password/forgot', ['email' => $user->first()->email]);
+
+        Notification::assertSentTo(
+            [$user],
+            \App\Notifications\SendPasswordResetNotification::class
+        );
     }
 }

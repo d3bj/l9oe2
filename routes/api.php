@@ -22,8 +22,18 @@ Route::get('/', function () {
 });
 
 // Auth
-Route::post('login', LoginCotroller::class);
-Route::post('logout', LogoutCotroller::class)->middleware(['auth:sanctum']);
-Route::post('register', RegisterCotroller::class);
-Route::post('reset-password', [ResetPasswordCotroller::class, 'reset']);
-Route::post('reset-password-sent-link', [ResetPasswordCotroller::class, 'sendResetLink']);
+Route::post('login', LoginCotroller::class)
+    ->name('api.login');
+
+Route::post('logout', LogoutCotroller::class)
+    ->name('api.logout')
+    ->middleware(['auth:sanctum']);
+
+Route::post('register', RegisterCotroller::class)
+    ->name('api.register');
+
+Route::post('password/forgot', [ResetPasswordCotroller::class, 'forgotPassword'])
+    ->name('password.request');
+
+Route::post('password/reset', [ResetPasswordCotroller::class, 'resetPassword'])
+    ->name('password.reset');
