@@ -19,10 +19,11 @@ class SendPasswordResetNotification extends Notification
      *
      * @return void
      */
-    public function __construct($token,$front_url)
+    public function __construct($token)
     {
         $this->token = $token;
-        $this->front_url = $front_url;
+        // Only http or https wihtout last slash '/'
+        $this->front_url = env('APP_FRONT_URL') ?? 'http://localhost';
     }
 
     /**
@@ -45,7 +46,7 @@ class SendPasswordResetNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        $frontResetLink = $this->front_url . '/password/reset/'. $this->token;
+        $frontResetLink = $this->front_url . '/password/reset/' . $this->token;
 
         return (new MailMessage)
             ->subject(Lang::get('Reset Password Notification'))
@@ -53,7 +54,7 @@ class SendPasswordResetNotification extends Notification
             ->line(Lang::get('Please copy and paste this token to your app, or click the button bellow to reset via web browser.'))
             ->line(Lang::get('You are receiving this email because we received a password reset request for your account.'))
             ->action(Lang::get('Reset Password'), $frontResetLink)
-            ->line(Lang::get('This password reset link will expire in :count minutes.', ['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')]))
+            ->line(Lang::get('This password reset link will expire in :count minutes.', ['count' => config('auth.passwords.' . config('auth.defaults.passwords') . '.expire')]))
             ->line(Lang::get('If you did not request a password reset, no further action is required.'));
     }
 

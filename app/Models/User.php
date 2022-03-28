@@ -49,8 +49,7 @@ class User extends Authenticatable
 
     public function sendPasswordResetNotification($token)
     {
-        $url = 'http://l9oe2-front.test';
 
-        $this->notify(new sendPasswordResetNotification($token,$url));
+        $this->notify(new sendPasswordResetNotification($token));
     }
 }

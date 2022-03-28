@@ -14,7 +14,7 @@ class ResetPasswordTest extends TestCase
      *
      * @return void
      */
-    public function test_user_can_get_the_email_with_password_reset_information()
+    public function test_can_user_get_the_email_with_password_reset_information()
     {
         Notification::fake();
 
