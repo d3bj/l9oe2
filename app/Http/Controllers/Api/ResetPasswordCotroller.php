@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use App\Notifications\SendPasswordResetNotification;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Password;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +29,9 @@ class ResetPasswordCotroller extends Controller
                 return response()->json(['message' => 'You will get an email with instructions.'], 200);
             }
         } catch (\Throwable $th) {
-            return response()->json(['errors' => ['error' => 'Could not sent email please try again later.']], 422);
+            Log::info('Log Generated from file ResetPasswordController.php line 32');
+            Log::error($th); 
+            return response()->json(['errors' => ['error' => 'Could not sent email please try again later.', $th]], 422);
         }
     }
 
