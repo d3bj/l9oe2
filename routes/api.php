@@ -46,13 +46,31 @@ Route::post('/artisan/call', function (Request $request) {
 
     switch ($request->type) {
         case 'fresh_migration':
+
             $artisan = \Artisan::call("migrate:fresh --force");
             $output = \Artisan::output();
+
             return response()->json([
                 "message" => "Migration Confirm.",
                 "output" => $output
             ]);
             break;
+
+        case 'clear_cache':
+
+            $artisan = \Artisan::call("cache:clear");
+            $output = \Artisan::output();
+            $artisan .= \Artisan::call("cache:clear");
+            $output .= \Artisan::output();
+            $artisan .= \Artisan::call("config:clear");
+            $output .= \Artisan::output();
+
+            return response()->json([
+                "message" => "Cache Cleared.",
+                "output" => $output
+            ]);
+            break;
+
 
         default:
             return response()->json([
