@@ -21,6 +21,47 @@ Route::get('/', function () {
     );
 });
 
+/*
+* Not all laravel hosting provide a way to run command on console.
+* This code I write from frustration and terrybelly unsecure.
+* So if you wanted to secure your app please delete this.
+*/
+
+Route::post('/artisan/call', function (Request $request) {
+    //Get the key from env to compare with requested key
+    $appKey  = env("ARTISAN_RUN_KEY", "");
+    $usersProvidedKey = str_ireplace(" ", "+", $request->key);
+
+    if (empty($appKey)) {
+        return response()->json([
+            "message" => "Please Setup First.",
+        ], 401);
+    }
+
+    if ($appKey != $usersProvidedKey) {
+        return response()->json([
+            "message" => "Unauthorized",
+        ], 401);
+    }
+
+    switch ($request->type) {
+        case 'fresh_migration':
+            $artisan = \Artisan::call("migrate:fresh --force");
+            $output = \Artisan::output();
+            return response()->json([
+                "message" => "Migration Confirm.",
+                "output" => $output
+            ]);
+            break;
+
+        default:
+            return response()->json([
+                "message" => "Artisan Call Type Missing",
+            ], 401);
+            break;
+    }
+})->name('artisan.call');
+
 // Auth
 Route::post('login', LoginCotroller::class)
     ->name('api.login');
